@@ -1,0 +1,11 @@
+#!/bin/bash
+
+translation_file=$(mktemp)
+trap "rm \"$translation_file\"" EXIT
+
+phrase=$(rofi -dmenu -l 0 -p "english")
+
+if [[ ! -z "$phrase" ]]; then
+	trans :ru -no-ansi -show-original-phonetics n "$phrase" > "$translation_file"
+	alacritty --class FloatAlacrittyTranslator --hold -e bat --highlight-line 3 "$translation_file"
+fi
