@@ -23,5 +23,6 @@ if [[ ! -z "$phrase" ]]; then
 	alacritty --class FloatAlacrittyTranslator \
 			-o 'window.padding.x=20' \
 			-o 'window.padding.y=20' \
+			-o 'selection.save_to_clipboard=true' \
 			-e fish -c "$shell_cmd"
 fi
