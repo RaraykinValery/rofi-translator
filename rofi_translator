@@ -1,11 +1,27 @@
 #!/bin/bash
+set -euo pipefail
+
+script_dir_path=$(dirname $(realpath $0))
 
 translation_file=$(mktemp)
-trap "rm \"$translation_file\"" EXIT
+trap "rm '$translation_file'" EXIT
 
 phrase=$(rofi -dmenu -l 0 -p "english")
 
 if [[ ! -z "$phrase" ]]; then
-	trans :ru -no-ansi -show-original-phonetics n "$phrase" > "$translation_file"
-	alacritty --class FloatAlacrittyTranslator --hold -e bat --highlight-line 3 "$translation_file"
+	trans en:ru \
+		-show-translation-phonetics n \
+		-show-original-phonetics n \
+		-show-prompt-message n \
+		-show-languages n \
+		-show-alternatives n \
+		"$phrase" \
+		-o "$translation_file"
+	
+	shell_cmd="$script_dir_path/format_text_to_terminal_size -f '$translation_file'; bat --plain --paging always '$translation_file'"
+
+	alacritty --class FloatAlacrittyTranslator \
+			-o 'window.padding.x=20' \
+			-o 'window.padding.y=20' \
+			-e fish -c "$shell_cmd"
 fi
