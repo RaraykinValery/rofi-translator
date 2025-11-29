@@ -6,7 +6,7 @@ script_dir_path=$(dirname $(realpath $0))
 translation_file=$(mktemp)
 trap "rm '$translation_file'" EXIT
 
-phrase=$(rofi -dmenu -l 0 -p "english")
+phrase=$(rofi -dmenu -p "english" -config "$script_dir_path/translator-config.rasi")
 
 if [[ ! -z "$phrase" ]]; then
 	trans en:ru \
