@@ -169,10 +169,10 @@ configuration {
 
 window {
     border-radius: 5px;
-    border: 2;
-    border-color: rgba(0, 255, 153, 0.7);
+    border: 1;
+	border-color: rgba(54, 59, 84, 1);
     width: 515;
-    background-color: rgba(36, 40, 59, 0.9);
+    background-color: rgba(36, 40, 59, 1);
     padding: 10px;
 }
 
