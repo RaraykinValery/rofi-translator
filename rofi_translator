@@ -9,20 +9,21 @@ trap "rm '$translation_file'" EXIT
 phrase=$(rofi -dmenu -p "english" -config "$script_dir_path/translator-config.rasi")
 
 if [[ ! -z "$phrase" ]]; then
-	trans en:ru \
-		-show-translation-phonetics n \
-		-show-original-phonetics n \
-		-show-prompt-message n \
-		-show-languages n \
-		-show-alternatives n \
-		"$phrase" \
-		-o "$translation_file"
-	
-	shell_cmd="$script_dir_path/format_text_to_terminal_size -f '$translation_file'; bat --plain --paging always '$translation_file'"
+    trans en:ru \
+        -show-translation-phonetics n \
+        -show-original-phonetics n \
+        -show-prompt-message n \
+        -show-languages n \
+        -show-alternatives n \
+        "$phrase" \
+        -o "$translation_file"
 
-	alacritty --class FloatAlacrittyTranslator \
-			-o 'window.padding.x=20' \
-			-o 'window.padding.y=20' \
-			-o 'selection.save_to_clipboard=true' \
-			-e fish -c "$shell_cmd"
+    shell_cmd="$script_dir_path/format_text_to_terminal_size -f '$translation_file'; bat --plain --paging always '$translation_file'"
+
+    alacritty --class FloatAlacrittyTranslator \
+                -o 'window.padding.x=20' \
+                -o 'window.padding.y=20' \
+                -o 'selection.save_to_clipboard=true' \
+                -e fish -c "$shell_cmd"
+
 fi
